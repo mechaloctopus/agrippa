@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Planetary Magic in Premodern Grimoires</title>
+  <meta name="description" content="Planetary Magic in Premodern Grimoires — a formatted article with expandable cards for each planet." />
+
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.7);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1000px;
+      --accent: #7dd3fc;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(125, 211, 252, .18), transparent 55%),
+        radial-gradient(900px 500px at 85% 25%, rgba(167, 139, 250, .16), transparent 55%),
+        radial-gradient(700px 500px at 50% 95%, rgba(34, 197, 94, .10), transparent 55%),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+
+    header{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(500px 180px at 20% 0%, rgba(125, 211, 252, .22), transparent 60%),
+        radial-gradient(420px 160px at 90% 30%, rgba(167, 139, 250, .22), transparent 60%);
+      pointer-events:none;
+      filter: blur(2px);
+      opacity:.9;
+    }
+
+    header > *{ position:relative; }
+
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      letter-spacing: .2px;
+    }
+
+    .subtitle{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    .toolbar{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pillbar{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .btns{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button{
+      appearance:none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 600;
+      font-size: 13.5px;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+    }
+    button:hover{ background: rgba(255,255,255,.09); }
+    button:active{ transform: translateY(1px); }
+
+    nav{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    nav a{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    nav a:hover{
+      background: rgba(255,255,255,.08);
+      text-decoration:none;
+    }
+
+    main{
+      margin-top: 18px;
+      display:grid;
+      gap: 14px;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-inner{
+      padding: 18px 18px 16px;
+    }
+
+    .lead{
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .section-title{
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    details{
+      border-top: 1px solid var(--border);
+      padding: 0;
+    }
+
+    details:first-of-type{
+      border-top: none;
+    }
+
+    summary{
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      padding: 16px 18px;
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker{ display:none; }
+
+    .summary-left{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .planet{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      white-space: nowrap;
+    }
+
+    .glyph{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .hint{
+      color: var(--muted);
+      font-size: 13px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 60ch;
+    }
+
+    .chev{
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      transition: transform .18s ease;
+    }
+
+    details[open] .chev{
+      transform: rotate(180deg);
+    }
+
+    .content{
+      padding: 0 18px 18px;
+      color: var(--text);
+    }
+
+    .content p{
+      margin: 0 0 12px;
+      color: rgba(255,255,255,.88);
+    }
+
+    .content p:last-child{ margin-bottom: 0; }
+
+    .block{
+      padding: 14px 14px;
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      margin-top: 10px;
+    }
+
+    .muted{
+      color: var(--muted);
+    }
+
+    footer{
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .kicker{
+      display:inline-block;
+      margin-top: 10px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.62);
+    }
+
+    /* Smooth-ish open: keep it simple and accessible */
+    @media (prefers-reduced-motion: no-preference){
+      summary{ transition: background .2s ease; }
+      summary:hover{ background: rgba(255,255,255,.03); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Planetary Magic in Premodern Grimoires</h1>
+      <p class="subtitle">
+        A super well formatted and easy to read article, with expandable cards for each planet.
+      </p>
+
+      <div class="toolbar" role="group" aria-label="Controls">
+        <div class="pillbar">
+          <span class="pill">Format: Single-page HTML</span>
+          <span class="pill">Cards: Expand / Contract</span>
+          <span class="pill">Planets: 7 classical rulers</span>
+        </div>
+        <div class="btns">
+          <button type="button" id="expandAll">Expand all</button>
+          <button type="button" id="collapseAll">Collapse all</button>
+        </div>
+      </div>
+
+      <nav aria-label="Jump to planet">
+        <a href="#saturn">Saturn</a>
+        <a href="#jupiter">Jupiter</a>
+        <a href="#mars">Mars</a>
+        <a href="#sun">The Sun</a>
+        <a href="#venus">Venus</a>
+        <a href="#mercury">Mercury</a>
+        <a href="#moon">The Moon</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Intro / full article text kept word-for-word, just wrapped -->
+      <section class="card" aria-label="Introduction">
+        <div class="card-inner">
+          <h2 class="section-title">Introduction</h2>
+          <p class="lead">
+            Planetary magic was a core aspect of medieval and Renaissance occultism, centered on the seven classical “ruling” planets: Saturn, Jupiter, Mars, the Sun, Venus, Mercury, and the Moon. Premodern grimoires (books of magic) like the Picatrix (an influential 13th-century Arabic text) and Heinrich Cornelius Agrippa’s Three Books of Occult Philosophy (1533) catalogued extensive correspondences for each planet – linking them to specific spirits and angels, metals, stones, plants, colors, and other qualities  . Each planet was believed to have a hierarchy of presiding beings: a beneficent Intelligence (often treated as an angelic or “good” planetary spirit) and a sometimes “darker” Spirit . Through ritual magic, practitioners sought to invoke these planetary intelligences and spirits – for example, to empower talismans engraved at astrologically auspicious times . A key feature of this tradition were the so-called magic tables or numeric planetary squares: each planet was assigned a grid of numbers (a kamea or sacred table) from which one could derive the planet’s seal and the sigils of its intelligence and spirit  . Below is a detailed look at each of the seven planetary rulers, drawing on Agrippa and other early sources, with their ancient tables, correspondences, spirits, angels, and talismanic uses.
+          </p>
+        </div>
+      </section>
+
+      <!-- SATURN -->
+      <section class="card" id="saturn" aria-label="Saturn">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">♄</span>
+              <div>
+                <div class="planet">Saturn (♄)</div>
+                <div class="hint">Nature, correspondences, spirits, table, and talismanic uses</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> Saturn was regarded as the “Greater Malefic” in astrology – associated with time, fate, limitation, and melancholy – yet also with deep wisdom and longevity . In Agrippa’s system of correspondences, lead is the metal of Saturn (due to its heaviness and dullness), and dark, earthy colors like black, brown, and leaden hues are Saturnine  . Saturn’s qualities are cold and dry; its associated tastes are sour or bitter, and its plants and animals are those marked by heaviness, solitude, or a melancholy nature (e.g. cypress trees, hellebore, the mule, the wolf, the screech-owl, etc.)  . As Agrippa says, “Saturnine things, amongst Elements, are earth and also water; amongst humors, black choler… Amongst metals, lead, and gold, by reason of its weight… amongst stones, onyx… and all dark, weighty, earthy things” . All “black, lucid, earthy, leaden, or brown” colors were believed to pertain to Saturn’s influence .</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> Magicians postulated both a celestial intelligence and a spirit for Saturn’s sphere. Agrippa lists Agiel as “The Intelligence of Saturn” and Zazel as “The spirit of Saturn” . In magical terms, the intelligence represented Saturn’s positive, guiding force, whereas the spirit embodied its more dangerous or chaotic aspect . Traditional angelology often names Cassiel as the Archangel governing Saturn (the angel of Saturday), who watches from afar and “presides over the planet Saturn and Saturday” . An earlier grimoire, the Heptameron (attributed to Peter de Abano), likewise gives Cassiel as the angel of Saturn’s day. Another important spirit list comes from the Arbatel of Magic (1575), which introduces the Olympic spirits: for Saturn the Olympic spirit is Aratron . According to the Arbatel, Aratron “governs those things which are ascribed astrologically to Saturn” and has vast powers: he can transmute living creatures to stone, turn coal into treasure (and vice versa), reconcile subterranean spirits to men, teach Alchemy, Magic and Medicine, grant familiar spirits, bestow invisibility, make barren women fruitful, and even confer long life upon the magician . Aratron is to be invoked on Saturday in the first hour of daylight, using his sigil, to access these Saturnine gifts .</p>
+
+            <p><strong>The Magic Table of Saturn:</strong> The ancient planetary “table” of Saturn is a 3×3 magic square containing the numbers 1 through 9. In Agrippa’s account, this Saturn square has rows and columns summing to 15, with a total sum of 45 . From this numeric table are derived the “seal or Character of Saturn” as well as the sigils of Saturn’s intelligence and spirit . Agrippa provides the divine names associated with Saturn’s numbers, culminating in the entries for 45: “45. Agiel, The Intelligence of Saturn… 45. Zazel, The spirit of Saturn” . He gives illustrations (in the original text) of the Seal of Saturn and the characters of Agiel and Zazel, all drawn from the patterns in the 3×3 grid  .</p>
+
+            <p><strong>Talismanic Uses:</strong> Talismans of Saturn were typically engraved in lead (Saturn’s metal) under appropriate astrological conditions. Agrippa writes that the Saturn table “being with a fortunate Saturn engraven on a plate of lead, doth help to bring forth [birth], and to make a man safe and powerful, and to cause success of petitions with princes and powers” . In other words, if made when Saturn is strong (e.g. in Saturn’s hour and in a favorable zodiacal position), the Saturn talisman confers protection, authority, and favor in high places . However, if made under an “unfortunate” Saturn (when Saturn is afflicted), the same talisman can produce malefic effects: Agrippa warns that a Saturnine engraving done when Saturn is adverse “hinders buildings, plantings… casts a man from honors and dignities, and causes discords and quarrellings, and disperses an army” . Thus, timing and astrological dignity were crucial in planetary talisman-making. The Picatrix and other grimoires also give detailed recipes for Saturn talismans. For example, one Saturn image from Picatrix (echoed by Agrippa) was used to prolong life: “Saturn ascending… the image of a man, having the countenance of a hart (deer), and camel’s feet, sitting upon a chair or dragon, holding in his right hand a scythe, in his left hand a dart” . They “hoped this image would be profitable for the prolongation of life,” connecting Saturn with longevity  (indeed Agrippa notes an astrological lore that certain long-lived regions of India were “subject to Saturn” ). Another Saturnine image Agrippa mentions is an old man on a high chair with a sickle and a fish beneath his feet, engraved in a sapphire at Saturn’s hour – also aimed at securing “length of days” (a long life) . These examples show how Saturn’s talismanic images were designed to tap its powers over life and death, protection, invisibility, banishment of enemies, and other weighty matters of fate and fortune.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- JUPITER -->
+      <section class="card" id="jupiter" aria-label="Jupiter">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">♃</span>
+              <div>
+                <div class="planet">Jupiter (♃)</div>
+                <div class="hint">Greater Benefic: wealth, mercy, expansion, and talismanic felicity</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> In contrast to Saturn, Jupiter was called the “Greater Benefic” – a planet of expansion, lordship, wealth, and mercy. Jovial characteristics include warm, moist qualities and an association with temperance, health, and prosperity. Agrippa assigns tin as the primary metal of Jupiter (shiny but not as precious as gold) along with some influence over silver and gold “by reason of their temperateness” (i.e. their balanced qualities) . Corresponding colors for Jupiter are blue and purple or clear shades tending toward azure and sea-green . Agrippa writes that “sapphire and airy colors, and those which are always green, clear, [or] purple… belong to Jupiter” . Among stones, he lists hyacinth (jacinth), beryl, emerald, and sapphire as Jupiterian gems, especially those of a rich blue or green hue . Sweet and pleasant tastes are Jovial (e.g. honey, sugar) . Plants that nourish life and bring luck – “lucky trees” like oak, ash, and olive, and sweet fruits like figs and almonds – fall under Jupiter’s dominion . Animals sacred to Jupiter are those of regal or gentle nature: for example, the eagle (Jupiter’s emblem) and the hart (stag) for its stateliness . In short, Jupiter governs things that are benevolent, kingly, and growth-giving.</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> Agrippa gives the names Johphiel (or Jophiel) as the “Intelligence of Jupiter” and Hismael as the “spirit of Jupiter” . (Jophiel’s name is sometimes translated as “Beauty of God” , befitting Jupiter’s positive aspect.) In older Christian angel lore, Sachiel (or Zadkiel) is often assigned as the archangel of Jupiter/Thursday , being an angel of charity and memory. The Olympic spirit corresponding to Jupiter is Bethor, according to the Arbatel. Bethor “administers the affairs of Jupiter” and is said to respond quickly to petitions . The powers of Bethor are expansive: one invested with Bethor’s character could “be exalted to illustrious positions” and “obtain large treasures” . Bethor reconciles ** aerial spirits** to cooperate with the magician (thus ensuring friendly spirit messengers), helps in obtaining answers and miraculous medicines, grants familiars, and can prolong a person’s life up to 700 years (with divine permission) . Such claims underscore Jupiter’s reputation for magnanimity, wealth, and long life.</p>
+
+            <p><strong>Magic Table of Jupiter:</strong> Jupiter’s sacred table is a 4×4 magic square containing the numbers 1–16. Each row, column, and diagonal sums to 34, and the total of all numbers is 136 . In Agrippa’s text, the divine names corresponding to Jupiter’s square include the number 136 paired with Johphiel (Intelligence) and 136 with Hismael (Spirit) . Agrippa indicates that from this table one can draw the “Character of Jupiter, and of the spirits thereof” . The Seal of Jupiter and the sigils for Jophiel and Hismael are constructed from this numeric grid (typically by tracing paths through the square according to the numbers associated with each Hebrew letter of the name). These symbols appear in occult diagrams and were engraved on Jupiter talismans.</p>
+
+            <p><strong>Talismanic Virtues:</strong> Engraving Jupiter’s table or symbols on a metal like tin or silver during a strong Jupiter election yields a talisman of benevolence and prosperity. “They say that if it be impressed upon a silver plate with Jupiter being powerful and ruling, it conduceth to gain and riches, favor and love, peace and concord, and to appease enemies, to confirm honors, dignities and counsels” . In short, a properly made Jupiter talisman attracts wealth, honor, friendship, and harmony, and can even break enchantments (Agrippa adds that if engraved on coral, the Jupiter seal “dissolve[s] enchantments” as well) . However, a Jupiter talisman made under adverse conditions would have opposite effects – though Agrippa does not detail Jupiter’s negative use in this section, generally an “unfortunate” Jupiter could cause excess, legal trouble, or loss of status. The Picatrix and Agrippa give rich imagery for Jupiter talismans. One Jupiterian image described by Agrippa (from Picatrix Bk II, ch. 39) is made for prolonging life: “in the hour of Jupiter, Jupiter being in his exaltation fortunately ascending, in a clear and white stone, [they made] the figure of a man crowned, clothed in garments of a saffron color, riding upon an Eagle or Dragon, having in his right hand a dart as it were about to strike” . This regal figure on an eagle was believed to render the wearer “renowned, amiable, acceptable, [and] potent in all his works,” raising him to high fortune . Another Jupiter image for “felicity, riches, honor” featured a naked man crowned, praying with uplifted hands while seated on a four-footed chair carried by four winged youths – this talisman “increaseth felicity, riches, [and] honor…and freeth from enemies” . A third image of Jupiter aimed at a “religious and glorious life, and advancement of fortune” had a more fantastical form: “a man having the head of a lion or a ram, and eagle’s feet, clothed in saffron-colored clothes,” called “the son of Jupiter” . All these figures encapsulate Jupiter’s role as the planet of kingship, wealth, divine favor, and justice. The maker of a Jupiter talisman would seek Jupiter’s hour (typically Thursday at sunrise or another Jupiter hour) and ensure Jupiter was “fortunate” (e.g. in Sagittarius or Pisces, its signs, or exalted in Cancer) to capture the planet’s beneficence.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- MARS -->
+      <section class="card" id="mars" aria-label="Mars">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">♂</span>
+              <div>
+                <div class="planet">Mars (♂)</div>
+                <div class="hint">Hot and dry: courage, conflict, protection, iron, and victory</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> Mars is the planet of energy, war, conflict, and courage – the “Lesser Malefic” in astrology, but valued in magic for strength and protection. Mars’ elemental nature is hot and dry, choleric and fiery. Appropriately, iron (the metal of weapons and tools) is ruled by Mars . Agrippa says “amongst Metals, Iron, and red Brass [copper alloy]; and all fiery, red, and sulphureous things” are Martial . The color red – from blood-like scarlet to rust-colored – is strongly associated with Mars . He notes that “red colors, and burning, fiery, flaming… bloody, and iron colors, resemble Mars” . Stones attributed to Mars include the diamond (hardness for strength), bloodstone (red flecks suggest blood and courage), jasper, and magnetite (lodestone, for its iron-attracting property) . Plants of Mars are often poisonous, sharp, or pungent – e.g. garlic, hellebore, nettles, mustard, and all “that burn the tongue or cause tears” – and those covered in thorns or prickles . Animals under Mars are those that are “warlike, ravenous, bold” or aggressive: Agrippa lists the horse (for war), the wolf, the wild ass, serpents and venomous creatures, as well as quarrelsome small animals like wasps and flies . Birds of Mars are birds of prey (hawks, falcons, vultures) and “fatal birds” (owls and crows), basically flesh-eating or ill-omened fowl . All these correspondences highlight Mars’ domain over violence, valor, and conflict, but also its usefulness in combating threats.</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> Agrippa gives Graphiel (sometimes spelled Graphiel or Graphiel) as “The Intelligence of Mars” and Barzabel (or Barzabel/Barzabel) as “The spirit of Mars” . (Barzabel is also rendered Barzabel or Bartzabel in various manuscripts – a well-known spirit name in later grimoires – meaning a powerful martial demon). The planetary archangel corresponding to Mars is often Samael (sometimes Camael), who in Jewish lore is an angel of Mars and ruler of Tuesday . Samael is sometimes depicted as an angel of destruction or severity, fitting Mars’ harsher aspects. The Olympic spirit for Mars in the Arbatel is Phaleg . The Arbatel says simply: “Phaleg governs the things that are attributed to Mars. The person who possesses his character is raised by him to great honor in military affairs” . This suggests Phaleg grants success in war, promotion in the military, and martial renown. There is little elaboration beyond that, implying that Phaleg’s main role is to grant victory and honor in conflicts. In practice, magicians might call on Phaleg at the first hour of Tuesday (Mars’ day) for help in contests or battles.</p>
+
+            <p><strong>Magic Table of Mars:</strong> Mars’ kamea or magic square is 5×5, containing the numbers 1–25. Each row/column sums to 65, and the grand total is 325 . Agrippa notes that over Mars’s table “are set divine names with an Intelligence to good, [and] a spirit to bad, and out of it is drawn the Character of Mars and of his spirits” . In the Saturn and Jupiter tables, Agrippa explicitly gave the intelligence and spirit names; for Mars he later lists “25. Graphiel The Intelligence of Mars… 25. Barzabel The spirit of Mars” , linking them to the number 25 (the square’s side length, or the sum of rows?). The Seal of Mars and sigils of Graphiel and Barzabel would be traced from this numeric grid of 25 numbers. By engraving or inscribing these on an appropriate material, the magician creates the link to Mars’s influence.</p>
+
+            <p><strong>Talismanic Virtues:</strong> A Mars talisman was typically engraved on an iron plate or weapon (such as a sword or dagger) when Mars was “fortunate” (for example, in Aries or Scorpio with good aspects). Agrippa says that with Mars being strong, a talisman engraved on iron “makes a man potent in war and judgments and petitions, and terrible to his enemies, and victorious against them” . It was believed to instill courage and dominate others – essentially to confer a Martian prowess in conflict and litigation. (Agrippa also mentions engraving it on the gemstone called Corneola – likely carnelian – as a specific charm to “stop blood and the menses” , showing Mars talismans were used medically to staunch bleeding, Mars ruling blood and cuts.) Conversely, if made under an unfortunate Mars (e.g. retrograde or afflicted), a Mars talisman would have baleful effects: Agrippa warns it “hinders buildings, casts down the powerful from dignities, honors, and riches, and causes discord, strife, and hatred of men and beasts” . An ill-timed Mars talisman “strikes terror in all enemies and compels them to submit” but also can curse the user’s endeavors with misfortune and barrenness  – clearly something to avoid unless one specifically wanted to sow destruction.</p>
+
+            <p>Ancient image magic gives vivid forms for Mars. Agrippa (borrowing from older authorities) describes one Martial image thus: “From the operations of Mars they made an Image… in a Martial stone (especially a Diamond); the form of which was a man armed, riding upon a lion, having in his right hand a naked sword erected, [and] carrying in his left hand the head of a man” . They reported that an image of this kind “renders a man powerful in good and evil, so that he shall be feared by all; and whosoever carries it, they give him the power of enchantment, so that he shall terrify men by his looks when he is angry, and stupify them” . This dramatic talisman, made with Mars strong (for instance, Mars rising in the fiery sign Aries), embodies Mars’s aggressive might – the rider on a lion with a sword and severed head is an apt symbol of victory over one’s enemies. Another Mars image was a soldier armed and crowned, with a long lance, made with Mars ascending in Scorpio’s first face, to grant boldness and success in war and quarrels . Both emphasize Mars’s role in granting courage, offensive strength, and dominance. In the grimoires, Mars talismans were also used for protection – e.g. to ward off attacks, to stir up fear in threatening creatures, or to break malevolent spells (since Mars cuts through bindings). It was common, for example, for soldiers or those in danger to carry an iron sigil of Mars for bravery and defense.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- SUN -->
+      <section class="card" id="sun" aria-label="The Sun">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">☉</span>
+              <div>
+                <div class="planet">The Sun (☉)</div>
+                <div class="hint">Light, life, glory, gold, and the solar square of 666</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> The Sun was seen as the source of light, life, and glory – the heart of the cosmos in Hermetic philosophy. Gold is the quintessential Sun metal, “by reason of its splendor” and its incorruptibility . Agrippa says gold receives from the Sun that which “makes it cordial” (i.e. able to comfort and heal) . Solar colors are golden, yellow, orange, and bright — Agrippa lists “golden, saffron, purple, and bright colors” as resembling the Sun . Many sparkling or sun-like stones belong to the Sun: for instance, ruby, red garnet, chrysolite (golden-green), topaz, carbuncle (which “shines by night” with an inner fire), and diamond-like crystals that reflect rainbows  . A stone called heliotropion (bloodstone) was famous in solar magic; it was said to make one “renowned and famous” and even had the legend of turning the Sun’s reflection to blood-red when put in water with the herb of the same name . The Sun’s plants are those that turn toward the sun (heliotropic) – e.g. marigold or sunflower – or evergreens that “never fear winter” like laurel, cedar, and palm . Frankincense, saffron, cinnamon, citrus and other bright, aromatic substances are solar . Animals under the Sun are the lion (the “king of beasts”), the bull (for strength and leadership), the eagle (also solar as well as Jovial), and any creature that exhibits nobility, dominance, or vitality . The Sun’s day is Sunday, and its season is the height of summer. In human traits, the Sun governs rulership, fame, health, and the life force. Agrippa associates the Sun with the “spirit of life” in the blood and the principle of vision and enlightenment .</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> In Agrippa’s planetary tables, Nachiel (sometimes spelt Nakhiel) is given as “The Intelligence of the Sun” and Sorath as “The spirit of the Sun” . “Nachiel” in Hebrew can mean “Lord (or shining one) of God” and Sorath is sometimes interpreted as a demonic name related to the Sun (Sorath has the numerical value 666 in some kabbalistic schemes, matching the Sun square’s total of 666) . The archangel traditionally ruling the Sun is Michael, often regarded as the chief of the seven and associated with solar qualities of light and victory . (In Christian magical texts, Michael governs Sunday.) The Olympic spirit of the Sun in the Arbatel is Och . Och is very potent: he “administers solar things” and can prolong human life up to 600 years with perfect health . Och imparts “great wisdom” and gives excellent familiar spirits; he is said to teach alchemy as well – specifically, Och can convert any substance into gold (naturally over time, or instantly by magic) and bestow immense wealth . One with Och’s favor could “cause the possessor of his character to be worshipped as a god by the kings of the whole world” . This grand description underscores the Sun’s role as the source of glory, wealth, and vitality. Och should be conjured at sunrise on Sunday (the hour of the Sun) to obtain these blessings.</p>
+
+            <p><strong>Magic Table of the Sun:</strong> The Sun’s magic square is 6×6, with numbers 1–36. Each row and column sums to 111, and the entire grid sums to the famous “solar number” 666 . Agrippa notes that over the Sun’s table, as with others, are divine names with an intelligence for good and a spirit for evil, and from it are drawn the “Characters of the Sun, and of the spirits thereof” . In his listing, the number 111 (perhaps related to each row sum) corresponds to Nachiel (intelligence) and 666 (the total) corresponds to Sorath (spirit) . The Seal of the Sun – often drawn as a geometrical figure – and the sigils of Nachiel and Sorath are derived from this numeric array. These symbols appear in many occult works. For example, the “Character of the Sun” is often a circular sigil with portions of the square’s pattern, and the name Sorath is traced to yield a curving sigil. Engravers of Sun talismans would inscribe these on gold or yellow-gold alloys.</p>
+
+            <p><strong>Talismanic Virtues:</strong> A solar talisman, made under the Sun’s favor (e.g. on a Sunday at sunrise when the Sun is in Leo or Aries, etc.), was considered one of the most powerful, granting renown, authority, and well-being. Agrippa writes that a Sun table talisman “engraven on a Golden plate with the Sun being fortunate, renders him that wears it to be renowned, amiable, acceptable, [and] potent in all his works, and equals a man to kings and princes, elevating him to high fortunes, enabling [him] to do whatever he pleaseth” . In other words, it brings success, charisma, and elevation of status – a truly “kingly” talisman. However, if made under an unfortunate Sun (e.g. during a solar eclipse or with the Sun in a debilitated state), it would produce a tyrant: it “makes a tyrant, and a man to be proud, ambitious, unsatisfiable, and to have an ill ending” . This stark warning reflects the dual nature of solar power: rightly harnessed it bestows glory; wrongly harnessed it leads to hubris and ruin.</p>
+
+            <p>Old grimoires give many solar images used in magic. Agrippa recounts a classical image of the Sun used to make one invincible and cure diseases: “They made an Image at the hour of the Sun, the first face of Leo ascending with the Sun, the form of which was a king crowned, sitting in a chair, having a raven in his bosom, and under his feet a globe; he is clothed in saffron-colored clothes” . This splendid figure – a crowned king with a globe underfoot – “renders men invincible and honorable, and helps to bring their business to a good end, and to drive away vain dreams; also to be prevalent against fevers and the plague” . It was engraved in a balanite stone (perhaps a kind of gem) or a ruby at an astrologically elected time . Another solar image described: a dancing crowned woman in a chariot drawn by four horses, holding a mirror and a staff, with fire on her head – this one “renders a man fortunate and rich, and beloved of all” . It was made in a diamond or a red stone at the Sun’s hour. These elaborate images show how the Sun’s talismans aimed at victory, wealth, health, and dispelling darkness (both literal and figurative). It was common for solar talismans to be used for things like protection from illness (plague), gaining favor with authorities (kings), and strengthening the heart and spirit. The notion of the Sun talisman equating a person to a king or making them “worshipped as a god” (as the Arbatel put it for Och’s gifts) illustrates the exalted position the Sun held in magical cosmology.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- VENUS -->
+      <section class="card" id="venus" aria-label="Venus">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">♀</span>
+              <div>
+                <div class="planet">Venus (♀)</div>
+                <div class="hint">Love, beauty, fertility, copper, harmony, and joyfulness</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> Venus is the planet of love, beauty, art, and fertility. In classical thought Venus is moist and temperate (sometimes a bit warm), governing the phlegmatic humor mixed with blood (hence sensuality and generation) . Among the metals, Agrippa assigns copper to Venus – often referred to as brass or bronze in older texts, as copper alloys were common (he says “silver and brass, both yellow and red” are Venereal metals) . Indeed, copper’s lustrous beauty and its historical use in mirrors and cosmetics connected it to Venus (the alchemical symbol for copper is the same as Venus’s ♀ symbol). The colors of Venus are typically emerald green, spring-like fresh colors, and also pure white or pastels symbolizing beauty  . Agrippa mentions “all of a fair, various, white, and green colour” among Venus’s stones . Gemstones of Venus include beryl, emerald, sapphire (for its beautiful clarity), lapis lazuli, coral, and other pleasant-colored stones . Plants of Venus are those that are sweet, fragrant, or have pleasing taste: “all sweet perfumes and delightful and sweet fruits” are under Venus . He lists vervain (a love charm herb), violet, valerian, thyme, musk, ambergris, and the rose – especially the red rose, traditionally sacred to Venus . The myrtle tree was also dedicated to Venus in myth . As for animals, Venus rules creatures known for beauty or amorous behavior: “all luxurious, delicious animals, and [animals] of strong love” . For example, the dove and pigeon are classic Venus birds (Aphrodite’s birds), known for their mating devotion . Sparrows, famously lustful in folklore, were also associated with Venus . Among mammals, Agrippa oddly mentions the goat (for its prolific breeding), rabbits (coneys), and even “stinking sheep” – likely referencing musk-producing animals used in perfumes . Cats and hares, which were thought to be very fertile and sometimes to change sex (hare), also have a tie to Venus’s domain of sexuality (though Agrippa lists the hare under Mercury for changing sex , some overlap exists). In short, Venus encompasses love, pleasure, fertility, floral beauty, sweet scents, and harmonious colors.</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> In Agrippa’s list, Hagiel is the “Intelligence of Venus” and Kedemel the “spirit of Venus” . Additionally, Agrippa notes Bne Seraphim (“sons of the Seraphim”) as “the Intelligences of Venus” in the plural  – possibly referring to an angelic order (the Sephirotic choir associated with Venus/Netzach is often the Elohim or Beni Elohim in Kabbalah). Hagiel and Kedemel are the primary names a magician would use for summoning Venusian influence: Hagiel as the gentle angelic force of love, Kedemel as the more carnal spirit. The archangel of Venus (Friday) is usually given as Anael (or Haniel), an angel of grace and friendship . Anael was often invoked in Renaissance magic for love matters. The Olympic spirit for Venus from the Arbatel is Hagith . Hagith “governs venereal (Venus) concerns” and whoever has his character “is adorned with all beauty” . Hagith has the power of transmutation too: he can convert copper into gold “in a moment” and gold back into copper instantly . He also gives faithful servant spirits. Essentially, Hagith bestows beauty, charm, and the alchemical power related to Venus (turning copper to gold aligns with the idea of refining love or base desire into something more noble). Magicians would invoke Hagith at dawn on Friday in Venus’s hour to gain favor in love, attractiveness, artistic inspiration, or successful alchemical work with copper and metals.</p>
+
+            <p><strong>Magic Table of Venus:</strong> Venus’s magic square is 7×7, with the numbers 1–49. Each line sums to 175, and the total of all numbers is 1225 . Agrippa notes that over the Venus table are divine names with an intelligence to good and a spirit to evil, and that from it the “Character of Venus, and of the spirits thereof” is drawn . In the listing of names: the number 49 (7×7) seems related to Hagiel (Agrippa lists “••9 (perhaps 49?) Hagiel The Intelligence of Venus… 67 Kedemel The spirit of Venus… 252 Bne Seraphim the Intelligencies of Venus” ). There may be a small transcription issue in the text snippet, but typically 49 is a key Venus number (often associated with the name Hagiel), and 175 or 1225 might connect to other names. Regardless, the Seal of Venus and sigils of Hagiel and Kedemel are constructed from this square. These would be engraved on copper (or on a silver plate, as Agrippa suggests, since Venus also has affinity with silver) when Venus is well dignified.</p>
+
+            <p><strong>Talismanic Virtues:</strong> A Venus talisman aims to promote love, friendship, fertility, and harmony. Agrippa states that a Venus table engraved on a silver plate when Venus is fortunate “procureth concord, endeth strife, procureth the love of women, conduceth to conception, is good against barrenness, causeth ability for generation, dissolves enchantments, and causeth peace between man and woman, and maketh all kind of animals and cattle fruitful” . This is a comprehensive list of Venus’s benefic powers: harmony in relationships, sexual potency and fertility, breaking of curses (especially those causing impotence or discord), and even influence over animals’ breeding. It even says placing it in a dove-house will cause the pigeons to multiply ! Additionally, the Venus talisman “conduceth to the cure of all melancholy distempers, and causeth joyfulness; and being carried about travelers makes them fortunate” . We see here Venus’s power to banish sorrow and bring joy, reflecting the planet’s association with mirth and music (Venus governs the arts and pleasures, which heal melancholy). However, if Venus’s talisman is made in an inauspicious time (for example Venus retrograde or afflicted), it “causeth contrary things to all that hath been above said”  – meaning it would sow discord, infertility, hatred, etc. An unfortunate Venus can result in scandal or unrequited love, so timing was everything.</p>
+
+            <p>Medieval recipes for Venus talismans are often geared toward love and attraction. Agrippa (and Picatrix) give several Venusian images. One example: “From the operations of Venus they made an Image which was available for favor and benevolence, at the very hour (Venus) ascending into Pisces, the form of which was the image of a woman having the head of a bird, and feet of an eagle, holding a dart in her hand” . This somewhat strange hybrid figure was meant to improve one’s charisma and win people’s goodwill (perhaps the bird-headed woman suggests the soul or an angel of love). Another, more straightforward love talisman: “They made another Image of Venus to get the love of women, in lapis lazuli, at the hour of Venus, Venus ascending in Taurus; the figure was a naked maiden with her hair spread, having a looking-glass in her hand, and a chain tied about her neck, and near her a handsome young man holding her by the chain with his left hand, but with his right hand arranging her hair, and they both look lovingly on one another, and about them is a little winged boy holding a sword or a dart” . This elaborate vignette – essentially Eros (Cupid) binding together a lover and beloved – was said to powerfully attract love. It encapsulates Venus’s realm: beauty (the mirror, the hair), bondage of love (the chain held by a suitor), mutual affection (gazing at each other), and Cupid ready to strike hearts. Another image: a little girl in white with flowers in hand, which “maketh men pleasant, jocund, strong, cheerful, and giveth beauty”  – a general talisman for grace and attractiveness. These show the creativity in Venusian magic. They often required engraving these images on gemstones (like emerald, lapis, or copper plates) during Venus’s astrological hours. In everyday practice, a simpler Venus talisman might be a copper coin or piece inscribed with Venus’s symbol and names to attract love or friendship. The grimoires also advise offerings like rose petals, sweet perfumes, or even the blood of doves in the consecration of Venus talismans , to align with the sympathetic nature of the planet.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- MERCURY -->
+      <section class="card" id="mercury" aria-label="Mercury">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">☿</span>
+              <div>
+                <div class="planet">Mercury (☿)</div>
+                <div class="hint">Agile and changeable: intellect, eloquence, commerce, and dreams</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> Mercury is the most agile and changeable planet, governing intelligence, communication, commerce, and trickery. It takes on the nature of whatever it is near (in astrology Mercury can be benefic or malefic depending on context). Agrippa describes Mercurial things as those that are “mixed” and versatile: “amongst Elements, Water, although it moves all things indistinctly” (Mercury also has an airy quality, but the text emphasizes water’s fluidity) . Mercury rules the “animal spirit” and the nervous system in the body, as well as the tongue and wit. Quicksilver (liquid mercury) is Mercury’s metal, literally bearing the same name . He also includes tin (perhaps because Mercury can also combine with Jupiter’s qualities) and the “silver marcasite” (a sulfide mineral that might have a Mercury-like sheen) . Stones of Mercury are those of varied color or form: emerald (interesting choice, perhaps for its green, a color of knowledge), agate (often banded with many colors), red marble, topaz, and any stone with diverse colors or that is artificial like glass . Essentially, multicolored or chameleon-like gems belong to Mercury. Plants of Mercury are those with finely divided leaves or many small parts, and those that are medicinally used for the brain or speech. Agrippa lists hazel (a wand wood, good for divining), cinquefoil (five-leaved grass), the herb mercury (Mercurialis), fumitory, marjoram, parsley – generally plants that are neither purely one element nor another, or which have a mixture of properties . Animals ruled by Mercury are “ingenious, strong, inconstant, swift” or those that mimic and learn: apes/monkeys, foxes, dogs (for their intelligence and loyalty, interestingly he puts dogs also under Mercury for their cleverness), weasels, and any creature noted for cleverness . He also says animals of both sexes or that can change sex, like the hare and hyena, are Mercurial , reflecting Mercury’s androgyny in myth. Birds of Mercury are the talkative, melodic, or crafty ones: parrots (speech mimics), magpies, linnets, nightingales, and the ibis (sacred to Thoth) . Even the one-horned beetle (perhaps a scarab or some “bugs”) gets a mention, likely for being industrious or peculiar. In summary, Mercury’s domain is knowledge, eloquence, travel, commerce, trickery, invention, and the “in-between” states of things.</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> Agrippa’s table of Mercury lists Tiriel as “The Intelligence of Mercury” and Taphthartharath as “The spirit of Mercury” . (Taphthartharath is a mouthful – often given as a spirit name for Mercury, sometimes spelled slightly differently, and is one of the longer spirit names in these tables, said to contain the numerological value of Mercury’s square in Hebrew letters.) The archangel corresponding to Mercury (Wednesday) is usually Raphael, the angel of science, knowledge, and healing . (Some sources also associate Michael or Uriel with Mercury, but Raphael is most common in magical texts, likely drawing on the association of Raphael as the healing angel of Air). The Olympic spirit of Mercury is Ophiel . Ophiel “is the ruler of those things which are attributed to Mercury; he gives familiar spirits, teaches all arts, and enables the possessor of his character to change quicksilver immediately into the Philosopher’s Stone” . To unpack that: Ophiel grants skill in arts and sciences (apt for Mercury), can provide spirit servants to the magician, and has an alchemical role – turning the actual metal mercury (quicksilver) into the legendary Philosopher’s Stone (a miraculous substance), which shows Mercury’s link to alchemy and transformation. Ophiel should be invoked in Mercury’s day and hour (Wednesday, sunrise or Mercury hour) when seeking intellectual insight, eloquence, or magical transformation.</p>
+
+            <p><strong>Magic Table of Mercury:</strong> Mercury’s square is 8×8, using numbers 1–64. Each row/col sums to 260, and the whole sums to 2080 . Over Mercury’s table Agrippa says there are divine names with an intelligence and a spirit, and from it is drawn “a Character of Mercury, and of the spirits thereof” . In the name list, he gives (after some Hebrew names) “Tiriel. The Intelligence of Mercury… 2080 (perhaps) Taphthartharath. The spirit of Mercury” . The number 260 or 2080 likely is associated with those names (for example, in Hebrew gematria Tiriel = 260 and Taphthartharath = 2080, which indeed they are in Agrippa’s system). The Seal of Mercury and the sigils of Tiriel and Taphthartharath are drawn from this square. Engravers would often use either silver, tin, or “yellow brass” for Mercury talismans  – Agrippa notes it could be on silver, or tin, or a mixture (perhaps the alloy of tin and copper making brass, which appears yellow, symbolizing Mercury’s mixed nature).</p>
+
+            <p><strong>Talismanic Virtues:</strong> A Mercury talisman, made when Mercury is well-placed (e.g. Mercury in Gemini or Virgo, direct motion, in the hour of Mercury), grants intellectual prowess, communication skills, and commercial success. Agrippa says if Mercury’s table is engraved “with Mercury being fortunate upon silver, or tin, or yellow brass, or writ upon virgin parchment, it renders the bearer thereof grateful and fortunate to do what he pleaseth: it bringeth gain, and prevents poverty, conduceth to memory, understanding, and divination, and to the understanding of occult things by dreams” . In essence, a good Mercury talisman makes one eloquent, persuasive (“grateful” here meaning one finds favor), helps in business (gain and avoiding poverty), and sharpens the mind and psychic faculties (memory, understanding, dream interpretation, etc.) . It’s like a charm for wisdom and success in studies or trade. If Mercury were unlucky when making it, it would do the opposite: cause forgetfulness, confusion, loss in commerce, and false or disturbing dreams .</p>
+
+            <p>Mercury’s chameleon nature also meant its talismans could be used for a wide variety of purposes, from education to trickery. Agrippa/Picatrix give some Mercurial images as examples. One image: “a handsome young man, bearded, having in his left hand a rod in which a serpent is twined about (a caduceus), in his right carrying a dart, having his feet winged” . This was made with Mercury ascending in Gemini, and “they report that this image conferreth knowledge, eloquence, diligence in merchandizing and gain; moreover to beget peace and concord, and to cure fevers” . We see Mercury’s patronage of eloquence and commerce (the wing-footed youth with Hermes’ caduceus) as well as healing (curing fevers, since Mercury also rules medical astrology alongside the Sun). Another image: a man sitting on a chair or riding a peacock, with eagle’s feet, a crest on his head, holding a cock or fire in one hand – made with Mercury in Virgo – was for “goodwill, wit and memory” . Mercury talismans were also used for more mischievous aims: older grimoires mention using Mercury’s seal to facilitate theft or trickery (not surprisingly, as Mercury/Hermes is patron of thieves). But in sanctioned magic texts, the emphasis is usually on knowledge, writing, and eloquence. It was common for scholars or diplomats to carry a small charm of Mercury for eloquent speech, or for merchants to wear Mercury’s symbol for luck in trade. The Ars Notoria (a Solomonic text on gaining knowledge) likewise invokes Mercury’s influence for mastering liberal arts. In summary, Mercury’s talisman unlocks the doors of the mind – aiding everything from clever business dealings to the interpretation of dreams, making the bearer “fortunate to do what he pleases” through ingenuity .</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- MOON -->
+      <section class="card" id="moon" aria-label="The Moon">
+        <details>
+          <summary>
+            <div class="summary-left">
+              <span class="glyph" aria-hidden="true">☾</span>
+              <div>
+                <div class="planet">The Moon (☾)</div>
+                <div class="hint">Flux, growth and decay, silver, dreams, travel, and lunar spirits</div>
+              </div>
+            </div>
+            <span class="chev" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="content">
+            <p><strong>Nature and Correspondences:</strong> The Moon governs the realm of flux, growth and decay, emotions, and the subconscious. It is cold and moist, ruling over water and the nighttime. Agrippa lists silver as the Moon’s metal (called Luna in alchemy) . Among stones, we have the crystal and selenite (moonstone) that visibly reflect the Moon’s image or cycle – e.g. “the stone selenite, shining from a white body with a yellow brightness, imitating the motion of the Moon” by showing a luminescent spot that waxes and wanes . Pearls, formed in water and having a lunar luster, are also classic “moon gems,” as are any transparent or white stones . Colors of the Moon are white and silver, and also green (because of the Moon’s association with growth and plants) . The Moon’s herbs are generally moist, cold, or water-loving: e.g. water lilies, cabbage, lettuce, cucumber (succulent watery plants), and those that adjust to Moon cycles. Agrippa mentions the palm tree which puts out a new frond at each new Moon, and an herb (probably lunaria or saxifrage) that grows and shrinks with the Moon . Also, herbs connected to women’s cycles and “phlegmatic” humors fall under the Moon. As for animals, Lunary creatures include those that are nocturnal or changeable: “such as delight to be in man’s company” (perhaps domestic dogs) and those strong in love or hate (since the Moon rules passions) . Cats are famously lunar (their eyes shift with the light, pupils enlarging at night) . Frogs, oysters, crabs – creatures of both land and water – are Lunar . Many insects that emerge from putrefaction (like flies from rot, per old belief) were attributed to the Moon’s generative but also corrupting influence . Also, the two-horned beetle that burrows in dung for 28 days (a lunar month) is cited as a Moon creature . The Moon rules over women’s menstrual cycles (the term “moonth” relates), fertility, and childbirth. It was considered the mediator between the higher planets and Earth, so all things of change, generation, intuition, and madness (lunacy) fell under the Moon’s sway.</p>
+
+            <p><strong>Spirits, Intelligences, and Angels:</strong> The lunar intelligence is a bit complex in Agrippa’s text. He lists for the Moon: “Hasmodai, the spirit of the Moon; Schedbarshemoth Shartathan, the spirit of the spirits of the Moon” , and then a line for an intelligence: “Malcha betharsisim hed beriah schehalim” labeled as “The Intelligency of the Intelligence of the Moon” . This is likely a corrupted or very archaic name meaning “Queen of the Thrones of the Moon” or something similar (it appears to combine Hebrew words). It suggests there is an intelligence guiding the multiple lunar spirits. The name Hasmodai is interesting – it closely resembles Asmodai/Asmodeus, a famous demon of the Solomonic tradition. It’s possible “Hasmodai” here is a variant name for the lunar spirit (not necessarily the same Asmodeus associated with Mars/Saturn in other texts, but perhaps a lesser spirit of the Moon). The “spirit of the spirits” Schedbarshemoth may imply a hierarchy of lunar spirits under one chief. In practice, many magicians treated Gabriel as the Archangel of the Moon (Monday) , Gabriel being the heavenly messenger of annunciation (appropriate for the fluctuating Moon and its role in messages, dreams, and childbirth). So one might call on Gabriel for lunar workings in a Christian context. The Olympic spirit of the Moon is Phul . Phul governs “lunary concerns” and has the power to transmute all metals into silver, to heal dropsy (water retention, a very “watery” illness), and to provide spirits of the water who appear visibly and serve the magician . Phul can also prolong life to 300 years . We see that Phul encapsulates the Moon’s powers of transformation (changing metals to silver, the lunar metal), healing and influencing body fluids, and commanding water spirits (undines or similar). The Arbatel instructs invoking Phul in the Moon’s day/hour (Monday) for such aims.</p>
+
+            <p><strong>Magic Table of the Moon:</strong> The lunar magic square is 9×9, with numbers 1–81. Each row/column sums to 369, and the overall total is 3321 . Agrippa notes it has 81 numbers with 369 in each row, and “over it [the Moon table] are divine names with an Intelligence to what is good, and a spirit to what is bad” . Characters of the Moon and its spirits are drawn from this table . In his list, “••9 Hasmodai, the spirit of the Moon… 21 Schedbarschemoth Schartathan, the spirit of the spirits of the Moon… 21 Malcha betharsisim… (Intelligence)” . The numbers 9 and 21 are showing up there; possibly 9 relates to something (maybe one of the smaller divisions, or the row sum digits). In any case, the Seal of the Moon and the sigils for lunar spirits would be traced on this square. These were often inscribed on silver (for positive use) or on lead (for malefic use, as we’ll see) due to silver’s rulership by the Moon and lead being used in curses.</p>
+
+            <p><strong>Talismanic Virtues:</strong> A Moon talisman is a double-edged tool – the Moon can nurture and protect, but also enchant and delude. Agrippa says a “fortunate Moon” talisman engraved on silver “renders the bearer thereof grateful, amiable, pleasant, cheerful, honored, removing all malice and ill will” . It brings security in journeys (the Moon as guide of travelers by night), increases riches and maintains health, and “drives away enemies and other evil things from whatever place thou pleasest” . This shows the Moon’s protective aspect – acting almost like a ward against danger and negativity, and ensuring safe travel and prosperity (perhaps through popularity and providence). On the flip side, an “unfortunate Moon” talisman engraved in lead can be used as a curse: “wherever it shall be buried, it makes that place unfortunate, and the inhabitants thereabouts” . It sours the land, causing bad luck and exiling people. Agrippa says it will cause anyone against whom it’s made to “fly from his country” and it “hinders physicians, and orators, and all men whatsoever in their office, against whom it shall be made” . In effect, an ill-aspected Moon talisman could be used to jinx a person or location – crops might fail, people become sick or ineffective (doctors can’t heal, speakers can’t persuade), and general misfortune reigns. This was sympathetic magic: the waning Moon’s curse brings decline and desertion.</p>
+
+            <p>But in benevolent use, Moon talismans were popular for protection, love, and psychic power. Many charms for safety (especially for travelers or sailors) invoked the Moon’s power over tides and journeys. The Picatrix describes lunar images such as one for safe travel: “the figure of a man leaning on a staff, having a bird on his head, and a flourishing tree before him”, made with the Moon ascending  – this was said to prevent weariness in travelers. Another lunar image in Picatrix/Agrippa is dramatically detailed for fertility of the earth and health of children: “a woman cornuted (with two horns), riding on a bull or a dragon with seven heads, … clothed in white or green, with two serpents twined on her head and to each arm, and one to each foot, holding in her right hand a dart and in her left a looking-glass” . This complex figure, combining the Moon’s crescent horns, serpents (symbols of regeneration and lunar deities), and maternal imagery, was intended “for the increase of the fruits of the earth, and against poisons, and infirmities of children” . It captures the Moon’s role in growth and protection from harm (poison and illness). In practice, simpler Moon talismans included things like a piece of silver engraved with the Moon’s seal to enhance one’s intuition or to invite prophetic dreams. The Moon rules dreams and psychic visions; hence a lunar talisman can help one “understand occult things by dreams” as noted earlier . Many practitioners would also use lunar timing to consecrate objects – for example, waiting for a waxing Moon to create a talisman meant to grow or gain something, and a waning Moon to banish or curse.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Closing section (kept word-for-word) -->
+      <section class="card" aria-label="Conclusion and Sources">
+        <div class="card-inner">
+          <h2 class="section-title">Conclusion</h2>
+
+          <div class="block">
+            <p>Throughout these old grimoires, the seven planetary talismans form a system of magic that connects the material and spiritual realms. As Agrippa puts it, the planetary tables and images “represent that divine order of celestial numbers, impressed upon Celestials by the Ideas of the Divine mind, by means of the soul of the world” . By fashioning an image or seal at the right time, inscribed with the right names, the magician believed they could draw down the virtues of a planet into the talisman . Whether for gaining favor (Jupiter), love (Venus), mastery (Sun), protection (Mars/Saturn), knowledge (Mercury), or psychic power (Moon), the art of planetary magic provided a rich symbolic toolkit – one that blended astrology, cabala, and artisanal craft. The legacy of these works, from Picatrix to Agrippa and the Arbatel, continued into later grimoires and even modern esoteric practices, always stressing careful timing and the strict observation of the ancient correspondences when dealing with the potent planetary forces. The direct quotes and references above allow us to “go to the place in the book or text” and see exactly how these early magicians encoded their secrets of the seven planets, ensuring our report is both robust and true to the sources.</p>
+          </div>
+
+          <h2 class="section-title" style="margin-top:14px;">Sources</h2>
+          <div class="block">
+            <p>Sources: The correspondences and talismanic details for each planet are drawn from primary premodern sources including Agrippa’s Three Books of Occult Philosophy  , the Latin Picatrix as cited by Agrippa  , the Arbatel of Magic (as summarized by occult historian A.E. Waite)  , and the pseudo-Abano Heptameron tradition (for angelic rulerships) . These sources collectively represent the ancient planetary magic tables and lore that have been handed down through the centuries. Each citation above leads directly to the original text or translation, where you can explore the planetary chapters and tables in context.</p>
+            <span class="kicker">Tip: Save this file as <strong>index.html</strong> and open it in any browser.</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Built as a single, self-contained HTML page with accessible expand/collapse cards via the native <code>&lt;details&gt;</code> element.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const allDetails = Array.from(document.querySelectorAll("section.card details"));
+      const expandBtn = document.getElementById("expandAll");
+      const collapseBtn = document.getElementById("collapseAll");
+
+      function setAll(open){
+        allDetails.forEach(d => d.open = open);
+      }
+
+      expandBtn?.addEventListener("click", () => setAll(true));
+      collapseBtn?.addEventListener("click", () => setAll(false));
+
+      // Optional: open the planet if user navigates via hash
+      function openFromHash(){
+        const id = location.hash?.slice(1);
+        if(!id) return;
+        const section = document.getElementById(id);
+        const details = section?.querySelector("details");
+        if(details) details.open = true;
+      }
+      window.addEventListener("hashchange", openFromHash);
+      openFromHash();
+    })();
+  </script>
+</body>
+</html>
